@@ -1,7 +1,8 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
+const Movie = require('./movies');
 
-const Genero= sequelize.define('genero', {
+const Gender= sequelize.define('Gender', {
   
   id: {
     type: DataTypes.INTEGER,
@@ -9,19 +10,11 @@ const Genero= sequelize.define('genero', {
     primaryKey: true,
     autoIncrement: true
   },
-  name: {
+  description: {
     type: DataTypes.STRING,
     allowNull: false
   },
-  image: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  "associated-movies-or-series": {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  
+ 
 
 }, {
   
@@ -30,5 +23,11 @@ const Genero= sequelize.define('genero', {
   
 });
 
+module.exports=Gender;
 
-module.exports=Genero;
+
+Gender.associate = function () {
+  Gender.hasMany(Movie, {as:"movies"})
+  };
+
+

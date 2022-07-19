@@ -14,8 +14,8 @@ const mainController = {
      const usuarios= await Users.findAll()
      
 
+     
     
-    res.send(usuarios)
    
   },  
   
@@ -45,6 +45,7 @@ const mainController = {
 
         try {
           const {user, password }=req.body
+          
            if (!user||!password) {
             res.send("Los campos user y password no pueden estar en blanco")
 
@@ -53,18 +54,18 @@ const mainController = {
           const chekUser= await Users.findOne({where: { user: user}})
           let pass= chekUser.dataValues.password
             //comparamos que el campo usuario no sea null y que el pass concuerde con el guardaro
-          if (chekUser.length ==0 || !( await bcryptjs.compare(password, pass ) )) {
+          if (chekUser.length ==0 || !( await bcryptjs.compare(password, pass ))) {
               res.send("Usuario o password incorrecto")
           }else{
             const id= chekUser.dataValues.id
             const token=jwt.sign({id:id},'secret', { expiresIn: "7d" })
-            console.log(token, " para el usuario ",user  );
+            
             const cookiesOption={
               expires: new Date(Date.now()+ 90 *24*60*60*100),
               httpOnly:true
             }
             res.cookie("validacion", token, cookiesOption)
-            res.send("usuario autorizado")
+            res.send({message:"autenticacion correcta", token:token})
           }
           }      
             
@@ -75,7 +76,36 @@ const mainController = {
         }
         
       },  
-}
+
+
+      characters: async (req, res) => {
+        //se obtienen los parametros para busqueda
+        
+                res.send("esto es otro")  
+                console.log(req.body);
+          },
+
+      create: async (req, res) => {
+            //se obtienen los parametros para busqueda
+            console.log(req.query);
+                    res.send("enviado")  
+                    console.log("distinto");
+              },
+      put: async (req, res) => {
+                //se obtienen los parametros para busqueda
+                console.log(req.query);
+                        res.send("enviado")  
+                        console.log("distinto");
+                  },
+
+      delete: async (req, res) => {
+                    //se obtienen los parametros para busqueda
+                    console.log(req.query);
+                            res.send("enviado")  
+                            console.log("distinto");
+                      },
+
+    }
 
 
 

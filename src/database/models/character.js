@@ -1,6 +1,7 @@
 const { Sequelize, DataTypes } = require('sequelize');
+const { characters } = require('../../controller/main');
 const sequelize = require('../config/db');
-
+const Movies= require('./movies');
 const Character= sequelize.define('character', {
   
   
@@ -30,12 +31,9 @@ const Character= sequelize.define('character', {
   weight:{
     type: DataTypes.INTEGER,
     allowNull: false
-  },
+  }
   
-  "associated-movies-or-series": {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
+  
   
 
 }, {
@@ -47,3 +45,20 @@ const Character= sequelize.define('character', {
 
 
 module.exports=Character;
+
+/*
+Character.belognsToMany(Movies,{
+  through: "characterMovies",
+  as:"movies",
+  foreignKey:"characterId"
+}
+
+)
+*/
+
+Character.associate = function () {
+  Character.belongsToMany(Movies, { through: 'caracter_movie' });
+  Movies.belongsToMany(Character, { through: 'movie_character' });
+  };
+
+
