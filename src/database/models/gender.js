@@ -1,6 +1,6 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
-const Movie = require('./movies');
+const Movie = require('./movie');
 
 const Gender= sequelize.define('Gender', {
   

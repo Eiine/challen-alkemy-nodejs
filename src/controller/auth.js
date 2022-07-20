@@ -13,7 +13,7 @@ async function auth(req,res,next){
                 try {
                     
                     jwt.verify(token.validacion, "secret")
-                    res.send({message:"Autenticacion correcta"})
+                    
                     next()
                     
                 } catch (error) {

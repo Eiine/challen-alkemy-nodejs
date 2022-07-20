@@ -1,11 +1,14 @@
 const bcryptjs = require('bcryptjs');
-const Users = require('../database/models/users');
 const sequelize=require("../database/config/db")
 const dotenv=require("dotenv")
 const jwt=require("jsonwebtoken")
 
-
-
+//modelos para consultas
+const Users = require('../database/models/users');
+const character = require('../database/models/character');
+const gender = require('../database/models/gender');
+const content = require('../database/models/users');
+const movie = require('../database/models/movie');
 const mainController = {
   home: async (req, res) => {
         
@@ -55,7 +58,7 @@ const mainController = {
           let pass= chekUser.dataValues.password
             //comparamos que el campo usuario no sea null y que el pass concuerde con el guardaro
           if (chekUser.length ==0 || !( await bcryptjs.compare(password, pass ))) {
-              res.send("Usuario o password incorrecto")
+              res.send({message:"Usuario o password son incorrectos"})
           }else{
             const id= chekUser.dataValues.id
             const token=jwt.sign({id:id},'secret', { expiresIn: "7d" })
@@ -72,26 +75,42 @@ const mainController = {
         
          
         } catch (error) {
-          console.log(error)
+          res.send({message:"Usuario o passwor son incorrectos"})
         }
         
       },  
 
 
       characters: async (req, res) => {
-        //se obtienen los parametros para busqueda
+        //metodo get
         
-                res.send("esto es otro")  
-                console.log(req.body);
+               let show= await character.findAll({attributes: ['image', 'name']})
+               let et= await character.findAll({association:"movie"})
+              
+                console.log(et);
+               
+               res.send(show)
           },
 
       create: async (req, res) => {
-            //se obtienen los parametros para busqueda
-            console.log(req.query);
-                    res.send("enviado")  
-                    console.log("distinto");
+            
+            
+            const {image, name, age, history,weight}=req.body
+            
+            const insertar = await character.create({ 
+              
+              image:image, 
+              name:name, 
+              age:age, 
+              history:history,
+              weight:weight
+             });
+
+             res.send({message:"Character create"})
+
+
               },
-      put: async (req, res) => {
+      update: async (req, res) => {
                 //se obtienen los parametros para busqueda
                 console.log(req.query);
                         res.send("enviado")  

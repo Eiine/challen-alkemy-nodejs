@@ -19,7 +19,7 @@ app.listen(port, async() => {
   console.log(`Example app listening on port ${port}`)
   //conectandose a la base de datos
   try {
-    
+   
     
     
     await sequelize.sync({force: false});

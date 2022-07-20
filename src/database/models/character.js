@@ -1,7 +1,7 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const { characters } = require('../../controller/main');
 const sequelize = require('../config/db');
-const Movies= require('./movies');
+const Movies= require('./movie');
 const Character= sequelize.define('character', {
   
   
@@ -21,7 +21,7 @@ const Character= sequelize.define('character', {
   },
   
     age: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false
   },
   history: {
@@ -29,7 +29,7 @@ const Character= sequelize.define('character', {
     allowNull: false
   },
   weight:{
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING,
     allowNull: false
   }
   
