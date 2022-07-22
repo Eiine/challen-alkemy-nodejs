@@ -1,6 +1,6 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
-const Movie = require('./movies');
+const Movie = require('./movie');
 
 const Content= sequelize.define('Content', {
   
@@ -23,10 +23,6 @@ const Content= sequelize.define('Content', {
   
 });
 
-
-Content.associate = function () {
-  Content.hasMany(Movie, {as:"movies"})
-  };
 
 
 

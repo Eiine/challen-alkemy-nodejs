@@ -1,7 +1,7 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const { characters } = require('../../controller/main');
 const sequelize = require('../config/db');
-const Movies= require('./movie');
+const movie= require('./movie');
 const Character= sequelize.define('character', {
   
   
@@ -46,19 +46,9 @@ const Character= sequelize.define('character', {
 
 module.exports=Character;
 
-/*
-Character.belognsToMany(Movies,{
-  through: "characterMovies",
-  as:"movies",
-  foreignKey:"characterId"
-}
+Character.belongsToMany(movie, {through:"character_movie"})
+movie.belongsToMany(Character, {through:"movie_character"})
 
-)
-*/
 
-Character.associate = function () {
-  Character.belongsToMany(Movies, { through: 'caracter_movie' });
-  Movies.belongsToMany(Character, { through: 'movie_character' });
-  };
 
 

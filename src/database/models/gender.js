@@ -26,8 +26,4 @@ const Gender= sequelize.define('Gender', {
 module.exports=Gender;
 
 
-Gender.associate = function () {
-  Gender.hasMany(Movie, {as:"movies"})
-  };
-
 

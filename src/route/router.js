@@ -5,11 +5,14 @@ const router = express.Router();
 
 
 
-router.get("/",auth,mainController.home)
+
 router.post("/auth/register",mainController.register)
 router.post("/auth/login",mainController.login)
 router.get("/characters",auth,mainController.characters)  
 router.post("/characters",auth,mainController.create)
-router.put("/characters",mainController.update)
-router.delete("/characters",mainController.delete)
+router.put("/characters/:id",mainController.update)
+router.delete("/characters/:id",mainController.delete)
+router.get("/characters",auth,mainController.search) 
+
+router.post("/movie",auth,mainController.movieCreate)
 module.exports = router;

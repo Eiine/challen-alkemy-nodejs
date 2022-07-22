@@ -2,25 +2,16 @@ const bcryptjs = require('bcryptjs');
 const sequelize=require("../database/config/db")
 const dotenv=require("dotenv")
 const jwt=require("jsonwebtoken")
-
+const asociation=require("../database/models/asociations")
 //modelos para consultas
 const Users = require('../database/models/users');
 const character = require('../database/models/character');
 const gender = require('../database/models/gender');
 const content = require('../database/models/users');
 const movie = require('../database/models/movie');
-const mainController = {
-  home: async (req, res) => {
-        
-    const {email, user, password}=req.body
-    
-     const usuarios= await Users.findAll()
-     
 
-     
-    
-   
-  },  
+const mainController = {
+  
   
   register: async (req, res) => {
         
@@ -80,18 +71,56 @@ const mainController = {
         
       },  
 
-
+      //CHARACTERS LIST
       characters: async (req, res) => {
+        const query=req.query
+       
         //metodo get
-        
-               let show= await character.findAll({attributes: ['image', 'name']})
-               let et= await character.findAll({association:"movie"})
+          
+          
+            if (query.name==undefined && query.age==undefined && query.movie==undefined) {
               
-                console.log(et);
+              let characterList= await character.findAll({
+                
+                attributes: ['image', 'name']              
                
-               res.send(show)
+               }) 
+               
+               res.send(characterList)            
+            }else if (query.name){
+              let Character= await character.findAll({
+                where: {name:req.query.name},
+                
+                include:{
+                  model:movie,
+                  
+                  
+                  
+                }
+                
+              
+              })   
+              
+              res.send(Character)
+            }else if (query.age){
+              let Character= await character.findAll({where: {age:req.query.age}})   
+               
+              res.send(Character)
+            }else if (query.movie){
+              let movie= await character.findAll({where: {IdMovie:req.query.IdMovie}})   
+               console.log(movie);
+              res.send(movie)
+            }
+            else{
+              res.send({message:"personaje o pelicula no encontrado"})
+            }
+               
+             
+            
+             
+               
           },
-
+      // CHARACTERS CREATE
       create: async (req, res) => {
             
             
@@ -110,19 +139,78 @@ const mainController = {
 
 
               },
+      //edicion de personajes
       update: async (req, res) => {
-                //se obtienen los parametros para busqueda
-                console.log(req.query);
-                        res.send("enviado")  
-                        console.log("distinto");
-                  },
+        const id=req.params.id
+        console.log(id);
+        const {image, name, age, history,weight}=req.body
+           
+        const insertar = await character.update({ 
+          
+          image:image, 
+          name:name, 
+          age:age, 
+          history:history,
+          weight:weight
+         }, {where:{id:id}})
+         
+        
+         
+         res.send({message:"Character uptadte"})
+        },
 
       delete: async (req, res) => {
-                    //se obtienen los parametros para busqueda
-                    console.log(req.query);
-                            res.send("enviado")  
-                            console.log("distinto");
-                      },
+        
+        const id=req.params.id
+        console.log(id);
+        
+           
+        const insertar = await character.destroy({where:{id:id}})
+         
+        
+         
+         res.send({message:"Character delete"})
+        },
+      
+      search: async (req, res) => {
+        
+          const parametro= req.query.name
+          console.log(parametro);
+           
+          
+           
+           res.send({message:"Character delete"})
+          },
+        
+
+
+    //controller para movie
+      movieCreate: async (req, res) => {
+            
+            
+          const {image, title, creationDate, calification}=req.body
+         
+          
+        const insertar = await movie.create({ 
+    
+                image:image, 
+                title:title, 
+                creationDate:creationDate, 
+                calification:calification
+                
+   });
+
+   res.send({message:"Movie create"})
+
+
+    }
+
+
+
+
+
+
+
 
     }
 

@@ -1,6 +1,6 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const { characters } = require('../../controller/main');
-
+const movie= require("../models/movie")
 const sequelize = require('../config/db');
 const Character = require('./character');
 
@@ -23,7 +23,7 @@ const Movie= sequelize.define('Movie', {
     allowNull: false
   },
 
-  creatrionDate:{
+  creationDate:{
     type: DataTypes.DATE,
     allowNull: false
   },
@@ -45,10 +45,7 @@ const Movie= sequelize.define('Movie', {
 
 module.exports=Movie;
 
-Movie.associate = function () {
-  Movie.belongsToMany(Character, { through: 'movie_character' });
-  Character.belongsToMany(Movie, { through: 'character_movie' });
-  };
+
 
 
 
