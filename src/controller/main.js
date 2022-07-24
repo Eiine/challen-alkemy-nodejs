@@ -1,5 +1,6 @@
 const bcryptjs = require('bcryptjs');
 const sequelize=require("../database/config/db")
+const { Op } = require("sequelize");
 const dotenv=require("dotenv")
 const jwt=require("jsonwebtoken")
 const asociation=require("../database/models/asociations")
@@ -7,8 +8,10 @@ const asociation=require("../database/models/asociations")
 const Users = require('../database/models/users');
 const character = require('../database/models/character');
 const gender = require('../database/models/gender');
-const content = require('../database/models/users');
+const character_movie = require('../database/models/character_movie');
 const movie = require('../database/models/movie');
+
+const Movie = require('../database/models/movie');
 
 const mainController = {
   
@@ -82,17 +85,18 @@ const mainController = {
               
               let characterList= await character.findAll({
                 
-                attributes: ['image', 'name']              
+                attributes: ['image', 'name'],             
                
                }) 
                
                res.send(characterList)            
             }else if (query.name){
+              
               let Character= await character.findAll({
                 where: {name:req.query.name},
                 
-                include:{
-                  model:movie,
+                include:{ model: movie,
+                              
                   
                   
                   
@@ -100,6 +104,7 @@ const mainController = {
                 
               
               })   
+               
               
               res.send(Character)
             }else if (query.age){
@@ -188,10 +193,10 @@ const mainController = {
       movieCreate: async (req, res) => {
             
             
-          const {image, title, creationDate, calification}=req.body
+          const {image, title, creationDate, calification, personaje}=req.body
          
           
-        const insertar = await movie.create({ 
+        const movies = await movie.create({ 
     
                 image:image, 
                 title:title, 
@@ -199,6 +204,20 @@ const mainController = {
                 calification:calification
                 
    });
+
+   if(personaje!=undefined){
+    const characters= await character.findAll({where:{name:personaje}})
+    
+    //inserta los id de character y movi 
+    character_movie.create({
+      characterId:characters[0].id,
+      MovieId:movies.id
+    })
+    }
+    
+
+
+
 
    res.send({message:"Movie create"})
 

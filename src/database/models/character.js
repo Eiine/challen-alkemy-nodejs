@@ -47,7 +47,7 @@ const Character= sequelize.define('character', {
 module.exports=Character;
 
 Character.belongsToMany(movie, {through:"character_movie"})
-movie.belongsToMany(Character, {through:"movie_character"})
+movie.belongsToMany(Character, {through:"character_movie" })
 
 
 

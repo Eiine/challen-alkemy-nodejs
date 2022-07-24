@@ -22,7 +22,7 @@ app.listen(port, async() => {
    
     
     
-    await sequelize.sync({force: true});
+    await sequelize.sync({force: false});
     console.log('Connection has been established successfully.');
     
     
