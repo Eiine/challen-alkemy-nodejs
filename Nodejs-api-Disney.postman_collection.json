@@ -1,0 +1,412 @@
+{
+	"info": {
+		"_postman_id": "d2d53ac6-7acf-4c01-9c70-18fb1df32898",
+		"name": "Nodejs-api-Disney",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22099690"
+	},
+	"item": [
+		{
+			"name": "Registro de usuarios",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"user@hotmail.com\",\r\n    \"user\":\"user\",\r\n    \"password\":\"1234567\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth",
+						"register"
+					]
+				},
+				"description": "Para poder utilizar la api es necesario proporcionar los campos requeridos, email, user, password."
+			},
+			"response": []
+		},
+		{
+			"name": "Login de usuarios",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user\":\"user\",\r\n    \"password\":\"1234567\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth",
+						"login"
+					]
+				},
+				"description": "Una vez creado el usuario la api procederá a enviar un mail  \na la dirección proporcionada para dar la bienvenida y dará acceso al token  \ncreado por si fuera necesario en otro momento, de igual forma el mismo es  \nenviado al navegador dando acceso inmediato."
+			},
+			"response": []
+		},
+		{
+			"name": "Solicitar personajes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/characters",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"characters"
+					]
+				},
+				"description": "Haciendo una peticion del tipo get al end point /characters se obtendra todos los personajes"
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar personajes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/characters?name=Mikey",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"characters"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Mikey"
+						}
+					]
+				},
+				"description": "Los personajes pueden ser buscados pasando como parametro los siguientes campos name, age, weight, y por movie siendo este ultimo el unico que requiere el id para consultar vinculacion"
+			},
+			"response": []
+		},
+		{
+			"name": "Creacion de personajes",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n              \"image\":\"http://3.bp.blogspot.com/-BxrOciFjeo8/UQ09GkN0JWI/AAAAAAAABDk/or-vK3z0Dxg/s1600/mini.png\", \r\n              \"name\":\"minnie\", \r\n              \"age\":\"20 años\", \r\n              \"history\":\"Minnie Mouse es un personaje de dibujos animados, de los estudios Walt Disney Pictures. Es la eterna novia de Mickey Mouse y junto a él debutó en Locos por la aviación\",\r\n              \"weight\":\"18 kg\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/characters",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"characters"
+					]
+				},
+				"description": "Para crear un personaje es necesario pasar los los campos requeridos image, name, age, history, weigth\n\nsi se quiere vincular un personaje a una pelicula ya existente se puede pasar el un campo adicional llamado pelicula en el cual se debera colocar el title o titulo y de esta forma estaran vinculados."
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar personajes",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n              \"image\":\"http://3.bp.blogspot.com/-BxrOciFjeo8/UQ09GkN0JWI/AAAAAAAABDk/or-vK3z0Dxg/s1600/donal.png\", \r\n              \"name\":\"donal\", \r\n              \"age\":\"20 años\", \r\n              \"history\":\"donal es un pato que se enoja rapido\",\r\n              \"weight\":\"20 kg\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/characters/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"characters",
+						"2"
+					]
+				},
+				"description": "Para actualizar un personaje es necesario proporcionar un id de quien se desea renovar ,seguido de los campos que se necesiten, adicionalmente como en la creacion en el caso de querer vincular el mismo con una pelicula se podra pasar el campo pelicula el cual requiere el titulo de la misma."
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar personajes",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/characters/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"characters",
+						"2"
+					]
+				},
+				"description": "Para eliminar un personaje es neseario pasar el id del elemento a eliminar."
+			},
+			"response": []
+		},
+		{
+			"name": "Solicitar peliculas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/movies",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"movies"
+					]
+				},
+				"description": "Para buscar una pelicula solo es necesario realizar una peticion del tipo get a la ruta /movies."
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar peliculas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/movies?title=fantasia",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"movies"
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "fantasia"
+						}
+					]
+				},
+				"description": "Para buscar peliculas se pueden usar los campos title, gender , tambien es posible espesificar los resultados en orden ascendente y descendente."
+			},
+			"response": []
+		},
+		{
+			"name": "Crear peliculas",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{    \r\n                \"image\": \"aqui va una imagen de pelicula\", \r\n                \"title\":\"fantasia\", \r\n                \"creationDate\":  \"1988-02-01\", \r\n                \"calification\": 2\r\n                \r\n   }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/movies",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"movies"
+					]
+				},
+				"description": "Para crear una pelicula es necesario pasar los campos image, title, creationdate, calification de la misma forma que con el apartado de characters se puede pasar un campo adicional el cual es personaje , este campo es con la finalidad de vincularlo con la pelicula en el momento de la creacion."
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar peliculas",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "                \r\n             {    \r\n                \"image\": \"aqui va una imagen de pelicula\", \r\n                \"title\":\"toy story\", \r\n                \"creationDate\":  \"1988-02-01\", \r\n                \"calification\": 3\r\n                \r\n             }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/movies/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"movies",
+						"2"
+					]
+				},
+				"description": "En el caso de la actualizacion es posible enviar el campo que se quiera actualizar de una pelicula como en el caso de characters es posible enviar un campo extra el cual es Character el cual servira para vincular la pelicula y el personaje."
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar peliuclas",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/movies/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"movies",
+						"2"
+					]
+				},
+				"description": "Para eliminar una pelicula es necesario enviar el id del elemento que queremos borrar a la ruta /movies/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar por genero",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n            \r\n            \"genders\":\"accion\",\r\n            \"title\":\"mikey y sus amigos\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/gender",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"gender"
+					]
+				},
+				"description": "Realizando una peticion get al end point devolvera todos los generos que se encuentren registrados junto con sus peliculas relacionadas."
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un genero",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n            \"name\":\" fantasia\",\r\n            \"image\":\"aqui va una imagen \"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/gender",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"gender"
+					]
+				},
+				"description": "Para crear un genero enviando un objeto con los campos name e image ya seremos capases de crear un nuevo genero."
+			},
+			"response": []
+		},
+		{
+			"name": "Vincular genero con pelicula",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\":\"fantasia\",\r\n    \"genders\":\"accion\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/gender",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"gender"
+					]
+				},
+				"description": "Enviando un objeto con los campos title y genders podras vincular una pelicula a un genero determinado segun lo desees."
+			},
+			"response": []
+		}
+	]
+}
