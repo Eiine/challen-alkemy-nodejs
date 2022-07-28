@@ -28,7 +28,7 @@ const Movie= sequelize.define('Movie', {
     allowNull: false
   },
   
-    calification: {
+  calification: {
         type: DataTypes.INTEGER,
         allowNull: false
   }

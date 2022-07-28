@@ -2,24 +2,21 @@ const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
 const Movie = require('./movie');
 
-const Gender= sequelize.define('Gender', {
+const gender_movie= sequelize.define('gender_movie', {
   
-  id: {
+    GenderId: {
     type: DataTypes.INTEGER,
     allowNull: false,
     primaryKey: true,
-    autoIncrement: true
+    
   },
-  name: {
-    type: DataTypes.STRING,
-    allowNull: false
+  MovieId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    primaryKey: true,
+    
   },
 
-  image: {
-    type: DataTypes.STRING,
-    allowNull: false
-  }
- 
  
 
 }, {
@@ -29,7 +26,7 @@ const Gender= sequelize.define('Gender', {
   
 });
 
-module.exports=Gender;
 
 
 
+module.exports=gender_movie;
